@@ -1,0 +1,112 @@
+Sputefix Game Engine
+by Geek_Joystick
+2019
+
+
+read key:
+ () = options
+ {} = returned
+ [] = comments
+
+Global Variables:
+ FPS = 60
+ SCALE = 2 [MODIFY AT YOUR OWN RISK]
+ BLOCKSIZE = 16 [MODIFY AT YOUR OWN RISK]
+ RUNNING = True
+ PAUSE = False
+ BACKGROUND = black [used to clear the screen]
+ SCORE = 0
+ objects = EMPTYLIST [will fill up with objects you create and add to it]
+ 
+ [and now, preset colors]
+ black
+ white
+ red
+ green
+ blue
+ yellow
+ orange
+ magenta
+ purple
+ pink
+ lightblue
+ gray
+ lightgray
+
+Classes:
+ Sprite(filename, path):
+  -(useful) VARIABLES:
+   -w [width]
+   -h [height]
+   -cols [columns]
+   -rows
+   -rect [pygame.Rect]
+
+  -FUNCTIONS:
+   -draw(index, surface, x, y) [draws the indexed sprite to x and y of the surface]
+
+ Object(x, y, SpriteSheetFilename, type, color[if sprite load error], display):
+  -(useful) VARIABLES:
+   -x [X position]
+   -y [Y position]
+   -vx [X velocity]
+   -vy [Y velocity]
+   -color [if you wanna change it]
+   -animation [string, defines the current animation to play]
+   -animations [dictionnary, defines the animations keyframes and names]
+   -latency [current frame counter]
+   -maxlatency [frames in beetween each animation keys]
+   -index [current frame index, increased every maxlatency frames]
+  
+  -FUNCTIONS:
+   -update [updates x and y positions, and animations]
+   -draw [draws the current animation frame in the object's x and y coordinates]
+
+Global Functions:
+ spriteLoad(filename, path) {Sprite, (Sprite.w, Sprite.h)} [load a sprite and create a Sprite instance]
+ 
+ clearScreen [fill the screen with the BACKGROUND COLOR]
+ 
+ display [render current frame to screen]
+ 
+ resizeScreen(width, height) [resize screen to width*BLOCKSIZE by height*BLOCKSIZE]
+ 
+ screenTitle(title) [set screen name to title]
+ 
+ toggle(boolean) [toggle given boolean]
+ 
+ message(msg, color, x, y, fontsize) [render given msg to x and y coords, with given color and given font size]
+ 
+ events{pygame.event.get()}[manages quit and pause events, then return current events]
+ 
+ keydown(pygame.K_ or keycode) [test if given key is pressed]
+ 
+ keyup(pygame.K_ or keycode) [test if given key is released]
+ 
+ genMap(filename, idSet*) [creates objects with the idSet rules and file data, *idSet syntax: {"char1" : [type, spriteFilename, emergencyColor], "char2":list, ect}
+ 
+ update(Object) [update the given object]
+ 
+ draw(Object) [draw the given object]
+ 
+ create(x, y, spriteFilename, emergencyColor, type){Object} [create and return object]
+ 
+ objectsAdd(Object) [add given object to objects]
+ 
+ objectsRemove(Object) [remove given object from objects]
+ 
+ collision(object1, object2) {boolean} [detect if object1 is in collision with object2, DOESN'T ACTUALLY MANAGE THE COLLISION]
+ 
+ clone(Object) {Object} [creates another object with the attributes of the given Object, THEY INDEPENDANT FROM EACHOTHER]
+ 
+ musicLoad(filename) [loads music in the engine, DO NOT USE ANY OTHER MUSIC RELATED FUNCTIONS BEFORE USING THIS ONE AT LEAST ONCE, to test if a music is loaded do "if SOUNDTRACK:"]
+ 
+ musicPlay [play loaded music, looped automatically]
+ 
+ musicStop [stop completely the music, playing or not, but doesn't unload it]
+ 
+ soundLoad(filename) {Sound} [load a given sound, to store in a variable]
+
+ soundPlay(Sound) [play once a sound]
+ 
+ soundStop(Sound) [stop playing sound]
